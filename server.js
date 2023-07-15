@@ -4,6 +4,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 
 const authRoute = require("./routes/auth");
+const usersRoute = require("./routes/users");
 
 const PORT = process.env.PORT || 8080;
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:0.0.0.0/hotelBooking';
@@ -26,6 +27,7 @@ app.get('/', (req, res) => {
 });
 
 app.use("/api/auth", authRoute);
+app.use("/api/users", usersRoute);
 
 app.listen(PORT, () => 
     console.log(`Server listening on port ${PORT}`)
