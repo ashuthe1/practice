@@ -1,9 +1,9 @@
-import User from "../models/User.js";
-import bcrypt from "bcryptjs";
-import { createError } from "../utils/error.js";
-import jwt from "jsonwebtoken";
+const User = require("../models/User.js");
+const bcrypt = require("bcryptjs");
+const { createError } = require("../utils/error.js");
+const jwt = require("jsonwebtoken");
 
-export const register = async (req, res, next) => {
+const register = async (req, res, next) => {
   try {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
@@ -19,7 +19,7 @@ export const register = async (req, res, next) => {
     next(err);
   }
 };
-export const login = async (req, res, next) => {
+const login = async (req, res, next) => {
   try {
     const user = await User.findOne({ username: req.body.username });
     if (!user) return next(createError(404, "User not found!"));
@@ -47,3 +47,5 @@ export const login = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports = { register, login };
